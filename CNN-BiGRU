@@ -1,0 +1,36 @@
+#CNN-BiGRU
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Embedding, Conv1D, MaxPooling1D, GlobalMaxPooling1D, Bidirectional, GRU, Dense
+
+# Assuming you have a dataset X_train and y_train for training and X_test for testing
+
+# Define the model
+model = Sequential()
+
+# Add an embedding layer
+model.add(Embedding(input_dim=vocab_size, output_dim=embedding_dim, input_length=max_length))
+
+# Add a 1D convolutional layer with 24 filters and three different kernel sizes
+model.add(Conv1D(24, 3, activation='relu'))
+model.add(Conv1D(24, 3, activation='relu'))
+
+# Add max pooling layers
+model.add(MaxPooling1D(2))
+model.add(GlobalMaxPooling1D())
+
+# Add a Bidirectional GRU layer
+model.add(Bidirectional(GRU(128, return_sequences=True)))
+model.add(Bidirectional(GRU(128)))
+
+# Add a dense layer for output
+model.add(Dense(1, activation='sigmoid'))
+
+# Compile the model
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+# Train the model
+model.fit(X_train, y_train, epochs=200, batch_size=32, validation_data=(X_val, y_val))
+
+# Make predictions
+predictions = model.predict(X_test)
