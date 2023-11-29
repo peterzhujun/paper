@@ -1,0 +1,26 @@
+#Breakdown code
+import numpy as np
+import matplotlib.pyplot as plt
+from PyEMD import EMD, CEEMDAN
+
+# Generate sample data
+t = np.linspace(0, 1, 1000)
+s = np.sin(2 * np.pi * 5 * t) + np.sin(2 * np.pi * 10 * t)
+
+# Perform CEEMDAN decomposition
+ceemdan = CEEMDAN()
+cIMFs = ceemdan(s)
+
+# Plot the original signal and the decomposed components
+plt.figure(figsize=(12, 9))
+plt.subplot(cIMFs.shape[0] + 1, 1, 1)
+plt.plot(t, s, 'r')
+plt.title("Original Signal")
+
+for i in range(cIMFs.shape[0]):
+    plt.subplot(cIMFs.shape[0] + 1, 1, i + 2)
+    plt.plot(t, cIMFs[i], 'g')
+    plt.title("CEEMDAN Component %d" % (i + 1))
+
+plt.tight_layout()
+plt.show()
