@@ -1,0 +1,15 @@
+#linear interpolation
+import numpy as np
+
+# Define the known data points
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([3, 5, 7, 9, 11])
+
+# Point to be interpolated
+x_interp = 2.5
+
+# Perform linear interpolation
+y_interp = np.interp(x_interp, x, y)
+
+# Output the interpolated value
+print(f"The linearly interpolated value at x={x_interp} is y={y_interp}")
