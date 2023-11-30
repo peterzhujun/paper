@@ -1,0 +1,18 @@
+#MIC
+import minepy
+import numpy as np
+
+# Generate random multidimensional data
+np.random.seed(0)
+data = np.random.rand(100, 5)
+
+# Computational MIC
+mine = minepy.MINE()
+mic_matrix = np.zeros((5, 5))
+for i in range(5):
+    for j in range(5):
+        mine.compute_score(data[:,i], data[:,j])
+        mic_matrix[i, j] = mine.mic()
+
+print("MIC matrix:：")
+print(mic_matrix)
